@@ -3,7 +3,6 @@
     "scripts": {
         "dev": "next",
         "build": "next build && next export",
-        "deploy": "next build && type nul > out/.nojekyll && git add out/ && git commit -m \"Deploy\" && git subtree push --prefix out origin gh-pages"
     },
     "dependencies": {
         "next": "latest",
