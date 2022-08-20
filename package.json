@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "next",
         "export": "next export",
-        "build": "next build && next export"
+        "build": "next build && next export",
+        "https": "local-ssl-proxy --source 3001 --target 3000"
     },
     "dependencies": {
         "next": "latest",
@@ -14,6 +15,7 @@
         "@types/node": "^18.7.6",
         "@types/react": "^18.0.17",
         "autoprefixer": "^10.4.8",
+        "local-ssl-proxy": "^1.2.3",
         "postcss": "^8.4.16",
         "tailwindcss": "^3.1.8",
         "typescript": "^4.7.4"
