@@ -1,0 +1,15 @@
+.btn {
+  @apply hover:bg-primary-600 dark:hover:bg-primary-600 disabled:bg-primary-200 disabled:hover:bg-primary-200;
+  @apply text-primary-700 hover:text-white dark:text-primary-300 dark:hover:text-white disabled:text-primary-400;
+
+  @apply rounded-lg;
+  @apply border border-primary-700 dark:border-primary-500 focus:disabled:border-red-500;
+  @apply focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-800 focus:disabled:ring-red-300;
+
+  @apply font-medium text-sm text-center;
+
+  @apply mr-2 mb-2;
+  @apply px-5 py-2.5;
+
+  @apply disabled:cursor-not-allowed;
+}
