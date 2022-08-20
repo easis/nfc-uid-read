@@ -1,6 +1,6 @@
 .spinner {
   @apply w-6 h-6;
-  @apply text-indigo-200 dark:text-gray-500;
+  @apply text-indigo-200 dark:text-dark-gray-500;
   @apply fill-indigo-600;
   @apply animate-spin;
 }
