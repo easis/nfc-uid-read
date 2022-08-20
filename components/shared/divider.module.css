@@ -1,0 +1,4 @@
+.divider {
+  @apply my-6 sm:mx-auto lg:my-8;
+  @apply border-gray-300 dark:border-gray-700;
+}
