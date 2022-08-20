@@ -2,6 +2,13 @@
 
 Work in progress...
 
+## TODO
+- [x] Read NFC
+- [x] Hex/dec conversion
+- [ ] Export to CSV
+- [ ] Share (email, WhatsApp...)  
+- [ ] Show message type (if any)
+
 ## Resources
 - [Web NFC API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)
 - [Web NFC Draft Community Group Report](https://w3c.github.io/web-nfc/)
