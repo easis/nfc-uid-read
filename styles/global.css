@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  max-height: 100vh;
+}
+
 body {
   @apply bg-white dark:bg-dark-gray-500;
 }
