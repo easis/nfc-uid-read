@@ -1,0 +1,9 @@
+.btn {
+  @apply text-center;
+  @apply inline-flex justify-center;
+  @apply w-full;
+}
+
+.icon {
+  @apply mr-2;
+}
