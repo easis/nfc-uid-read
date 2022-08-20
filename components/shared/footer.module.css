@@ -1,0 +1,23 @@
+.footer {
+  @apply p-4 md:px-6 md:py-8;
+}
+
+.divider {
+  @apply my-6 sm:mx-auto lg:my-8;
+  @apply border-gray-200 dark:border-gray-700;
+}
+
+.container {
+  @apply text-sm dark:text-gray-400;
+  @apply sm:flex sm:items-center sm:justify-between;
+}
+
+.author {
+  @apply text-center;
+}
+
+.link {
+  @apply mr-4 md:mr-6;
+  @apply hover:underline;
+  @apply inline-flex gap-2;
+}
