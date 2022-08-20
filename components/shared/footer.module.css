@@ -2,13 +2,8 @@
   @apply p-4 md:px-6 md:py-8;
 }
 
-.divider {
-  @apply my-6 sm:mx-auto lg:my-8;
-  @apply border-gray-200 dark:border-gray-700;
-}
-
 .container {
-  @apply text-sm dark:text-gray-400;
+  @apply text-sm dark:text-dark-gray-400;
   @apply sm:flex sm:items-center sm:justify-between;
 }
 
@@ -16,8 +11,15 @@
   @apply text-center;
 }
 
+.links {
+  @apply flex flex-wrap items-center justify-center;
+  @apply mb-6 sm:mb-0;
+  @apply text-sm text-dark-gray-500  dark:text-dark-gray-400;
+}
+
 .link {
   @apply mr-4 md:mr-6;
   @apply hover:underline;
   @apply inline-flex gap-2;
+  @apply text-center md:text-right;
 }
