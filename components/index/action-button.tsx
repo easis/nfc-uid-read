@@ -1,10 +1,8 @@
 import styles from '@/components/index/action-button.module.css';
 
 import Button from "@/components/shared/button";
+import { IconPlayerPlay, IconPlayerStop } from '@tabler/icons';
 import { useEffect, useState } from 'react';
-
-const StartButtonIcon = <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} width="18" height="18" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M7 4v16l13 -8z"></path></svg>;
-const StopButtonIcon = <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} width="18" height="18" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="5" y="5" width="14" height="14" rx="2"></rect></svg>;
 
 interface ActionButtonProps {
     onMessageReceived: (event: NDEFReadingEvent) => void;
@@ -27,7 +25,7 @@ const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => 
     useEffect(() => {
         navigator.permissions.query({ name: 'nfc' as PermissionName })
             .then((status: PermissionStatus) => {
-                console.log('🐱‍👤', `NFC permission status: `, status.state);
+                console.log('🐱‍👤', 'NFC permission status: ', status.state);
 
                 if (status.state === 'prompt')
                     return;
@@ -63,8 +61,8 @@ const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => 
         <>
             {showPermissionError && <p>Here goes an error message!</p>}
             <Button className={styles.btn} onClick={onAction} disabled={!permissionGranted}>
-                {!isRunning ? StartButtonIcon : StopButtonIcon}
-                {!isRunning ? `Start` : `Stop`}
+                {!isRunning ? <IconPlayerPlay className={styles.icon} size={18} /> : <IconPlayerStop className={styles.icon} size={18} />}
+                {!isRunning ? 'Start' : 'Stop'}
             </Button>
         </>
     );

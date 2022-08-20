@@ -1,0 +1,7 @@
+.container {
+  @apply p-2;
+  @apply bg-gray-200 dark:bg-dark-gray-400;
+  @apply border border-primary-100;
+  @apply rounded shadow;
+  @apply animate-fade-in-down;
+}
