@@ -8,6 +8,7 @@ Work in progress...
 - [ ] Export to CSV
 - [ ] Share (email, WhatsApp...)  
 - [ ] Show message type (if any)
+- [ ] PWA & Offline use
 
 ## Resources
 - [Web NFC API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)
