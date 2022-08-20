@@ -29,7 +29,7 @@ const SettingsButton: React.FC<SettingsButtonProps> = (props: SettingsButtonProp
     return (
         <div className={styles.dropdown}>
             <Button id="settings-button" data-dropdown-toggle="settings-button-dropdown" onClick={() => setIsOpen(!isOpen)}>
-                <IconSettings />
+                <IconSettings size={20} />
             </Button>
 
             <div id="settings-button-dropdown" className={styles.items} data-expanded={isOpen}>

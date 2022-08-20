@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 
 interface ActionButtonProps {
     onMessageReceived: (event: NDEFReadingEvent) => void;
+    onPermissionGranted: () => void;
+    onPermissionDenied: () => void;
 };
 
 const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => {
@@ -19,52 +21,76 @@ const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => 
     const [abortController, setAbortController] = useState(new AbortController());
     abortController.signal.onabort = () => setIsRunning(false);
 
-    const [permissionGranted, setPermissionGranted] = useState(false);
-    const [showPermissionError, setShowPermissionError] = useState(false);
+    const [permissionState, setPermissionState] = useState<PermissionState>(null);
 
     useEffect(() => {
-        navigator.permissions.query({ name: 'nfc' as PermissionName })
+        navigator.permissions
+            .query({ name: 'nfc' as PermissionName })
             .then((status: PermissionStatus) => {
-                console.log('🐱‍👤', 'NFC permission status: ', status.state);
+                status.onchange = () => {
+                    console.log('🐱‍👤', 'NFC permission status changed to: ', status.state);
+                    setPermissionState(status.state);
+                };
 
-                if (status.state === 'prompt')
-                    return;
-
-                if (status.state === 'denied') {
-                    setShowPermissionError(true);
-                    return;
-                }
-
-                setPermissionGranted(status.state === 'granted');
+                setPermissionState(status.state);
             })
             .catch(e => {
-                setShowPermissionError(true);
+                console.error('❌', 'Error while querying for nfc permission', { exception: e });
             });
     }, []);
 
-    const onAction = async () => {
-        if (isRunning) {
-            abortController.abort('');
-            setAbortController(new AbortController());
-        } else {
-            try {
-                await reader.scan({ signal: abortController.signal });
-            } catch (ex) {
-                console.log('❌', 'Error while scanning for NFC tags', { exception: ex });
-            }
+    useEffect(() => {
+        if (permissionState === null)
+            return;
 
+        console.log('🐱‍👤', 'NFC permission status: ', permissionState);
+
+        setPermissionState(permissionState);
+
+        if (permissionState === 'denied') {
+            props.onPermissionDenied();
+            stopScanning();
+            return;
+        }
+
+        if (permissionState === 'granted') {
+            props.onPermissionGranted();
+        }
+    }, [permissionState]);
+
+    const onAction = async () => {
+        if (permissionState === 'denied')
+            return;
+
+        if (isRunning)
+            stopScanning();
+        else
+            await startScanning();
+    };
+
+    const startScanning = async () => {
+        try {
+            await reader.scan({ signal: abortController.signal });
             setIsRunning(true);
+        } catch (ex) {
+            console.log('❌', 'Error while scanning for NFC tags', { exception: ex });
         }
     };
 
+    const stopScanning = () => {
+        abortController.abort('');
+        setAbortController(new AbortController());
+
+        setIsRunning(false);
+    };
+
     return (
-        <>
-            {showPermissionError && <p>Here goes an error message!</p>}
-            <Button className={styles.btn} onClick={onAction} disabled={!permissionGranted}>
+        <div className='w-full'>
+            <Button className={styles.btn} onClick={onAction} disabled={(permissionState === 'denied')}>
                 {!isRunning ? <IconPlayerPlay className={styles.icon} size={18} /> : <IconPlayerStop className={styles.icon} size={18} />}
                 {!isRunning ? 'Start' : 'Stop'}
             </Button>
-        </>
+        </div>
     );
 };
 
