@@ -1,0 +1,17 @@
+.format-toggler {
+  @apply flex flex-row;
+}
+
+.format-item {
+  @apply basis-1/2;
+  @apply text-center;
+}
+
+.format-item[data-active="true"] {
+  @apply border-b-2 border-b-blue-500;
+}
+
+.messages-container {
+  @apply flex flex-col gap-2;
+  @apply max-h-96 overflow-y-scroll;
+}
