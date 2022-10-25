@@ -25,19 +25,21 @@ const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => 
     const [permissionState, setPermissionState] = useState<PermissionState>(null);
 
     useEffect(() => {
-        navigator.permissions
-            .query({ name: 'nfc' as PermissionName })
-            .then((status: PermissionStatus) => {
-                status.onchange = () => {
-                    console.log('🐱‍👤', 'NFC permission status changed to: ', status.state);
-                    setPermissionState(status.state);
-                };
+        if (window['fully'] == undefined) {
+            navigator.permissions
+                .query({ name: 'nfc' as PermissionName })
+                .then((status: PermissionStatus) => {
+                    status.onchange = () => {
+                        console.log('🐱‍👤', 'NFC permission status changed to: ', status.state);
+                        setPermissionState(status.state);
+                    };
 
-                setPermissionState(status.state);
-            })
-            .catch(e => {
-                console.error('❌', 'Error while querying for nfc permission', { exception: e });
-            });
+                    setPermissionState(status.state);
+                })
+                .catch(e => {
+                    console.error('❌', 'Error while querying for nfc permission', { exception: e });
+                });
+        }
     }, []);
 
     useEffect(() => {
