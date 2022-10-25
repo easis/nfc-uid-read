@@ -34,7 +34,7 @@ const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => 
                 .query({ name: 'nfc' as PermissionName })
                 .then((status: PermissionStatus) => {
                     status.onchange = () => {
-                        console.log(, 'NFC permission status changed to: ', status.state);
+                        console.log('🐱‍👤', 'NFC permission status changed to: ', status.state);
                         setPermissionState(status.state);
                     };
 
