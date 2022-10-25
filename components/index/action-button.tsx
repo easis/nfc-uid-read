@@ -1,6 +1,7 @@
 import styles from '@/components/index/action-button.module.css';
 
 import Button from "@/components/shared/button";
+import { IFully } from '@/lib/types/fully';
 import { IconPlayerPlay, IconPlayerStop } from '@tabler/icons';
 import { useEffect, useState } from 'react';
 
@@ -70,16 +71,27 @@ const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => 
 
     const startScanning = async () => {
         try {
-            await reader.scan({ signal: abortController.signal });
-            setIsRunning(true);
+            if (window['fully'] == undefined) {
+                await reader.scan({ signal: abortController.signal });
+                setIsRunning(true);
+            } else {
+                const fullyApi: IFully = window['fully'];
+                fullyApi.nfcScanStart();
+                fullyApi.bind('onNdefDiscovered', 'console.log("$serial", "$message", "$data");');
+            }
         } catch (ex) {
             console.log('❌', 'Error while scanning for NFC tags', { exception: ex });
         }
     };
 
     const stopScanning = () => {
-        abortController.abort('');
-        setAbortController(new AbortController());
+        if (window['fully'] == undefined) {
+            abortController.abort('');
+            setAbortController(new AbortController());
+        } else {
+            const fullyApi: IFully = window['fully'];
+            fullyApi.nfcScanStop();
+        }
 
         setIsRunning(false);
     };
