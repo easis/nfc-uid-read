@@ -13,19 +13,12 @@ const Home: NextPage = () => {
     const [isReady, setIsReady] = useState<boolean>(false);
     const [isCompatible, setIsCompatible] = useState<boolean>(false);
 
-    const [isFully, setIsFully] = useState<boolean>(false);
-
     useEffect(() => {
         checkCompatibility();
     }, []);
 
-    useEffect(() => {
-        setIsFully(window['fully'] !== undefined);
-    }, [setIsFully]);
-
     return (
         <>
-            {isFully && <div>Is Fully</div>}
             {!isReady && <div className={styles.container}><Spinner text='Checking if your device and browser are compatible with NFC...' /></div>}
 
             {(isReady && !isCompatible) && <NotCompatible onRetry={checkCompatibility} canRetry={isReady} />}
